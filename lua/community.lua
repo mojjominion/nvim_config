@@ -1,0 +1,20 @@
+-- AstroCommunity: import any community modules here
+-- We import this file in `lazy_setup.lua` before the `plugins/` folder.
+-- This guarantees that the specs are processed before any user plugins.
+
+---@type LazySpec
+return {
+  "AstroNvim/astrocommunity",
+  { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.colorscheme.catppuccin" },
+  { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
+  { import = "astrocommunity.motion.leap-nvim" },
+  {
+    "m4xshen/smartcolumn.nvim",
+    opts = {
+      colorcolumn = 120,
+      disabled_filetypes = { "help" },
+    },
+  },
+}
