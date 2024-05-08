@@ -15,39 +15,6 @@ return {
     },
   },
 
-  -- add typescript to treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then vim.list_extend(opts.ensure_installed, { "typescript", "tsx" }) end
-    end,
-  },
-
-  {
-    "pmizio/typescript-tools.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-    config = function()
-      require("typescript-tools").setup {
-        on_attach = function(client)
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-        settings = {
-          tsserver_max_memory = 8092,
-          separate_diagnostic_server = false,
-        },
-      }
-    end,
-  },
-
-  -- {
-  --   "nvimtools/none-ls.nvim",
-  --   opts = function(_, opts) table.insert(opts.sources, require "typescript.extensions.null-ls.code-actions") end,
-  -- },
-
   -- Extend auto completion
   {
     "hrsh7th/nvim-cmp",
