@@ -10,17 +10,14 @@ return {
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
     config.sources = {
       -- Set a formatter
-      -- null_ls.builtins.formatting.stylua,
-      -- null_ls.builtins.formatting.prettier,
-      -- Set a formatter
-      -- null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.prettierd,
       -- null_ls.builtins.diagnostics.prettierd,
       -- null_ls.builtins.diagnostics.eslint,
 
       null_ls.builtins.completion.spell,
       -- null_ls.builtins.formatting.beautysh,
-      null_ls.builtins.formatting.shfmt,
+      -- null_ls.builtins.formatting.shfmt,
       -- null_ls.builtins.code_actions.shellcheck,
 
       null_ls.builtins.diagnostics.mypy,
