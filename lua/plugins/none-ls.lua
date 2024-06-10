@@ -17,7 +17,7 @@ return {
 
       null_ls.builtins.completion.spell,
       -- null_ls.builtins.formatting.beautysh,
-      -- null_ls.builtins.formatting.shfmt,
+      null_ls.builtins.formatting.shfmt,
       -- null_ls.builtins.code_actions.shellcheck,
 
       null_ls.builtins.diagnostics.mypy,
