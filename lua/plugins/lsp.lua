@@ -55,9 +55,9 @@ return {
 
   {
     "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
+    version = "^5", -- Recommended
+    lazy = false,   -- This plugin is already lazy
     ft = { "rust" },
-    lazy = true,
     opts = function()
       local ok, mason_registry = pcall(require, "mason-registry")
       local adapter ---@type any
