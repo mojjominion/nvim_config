@@ -7,7 +7,7 @@ return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.pack.rust" },
+  -- { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.colorscheme.catppuccin" },
