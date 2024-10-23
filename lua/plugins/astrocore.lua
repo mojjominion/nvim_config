@@ -66,6 +66,7 @@ return {
         ["gr"] = { "<cmd>Telescope lsp_references<cr>", desc = "Find LSP References" },
         ["<leader>fd"] = { "<cmd>Telescope media_files<cr>", desc = "Find media files" },
         ["<leader>lb"] = { "<cmd>LspRestart<cr>", desc = "Restart Lsp" },
+        ["<leader>le"] = { "<cmd>:terminal npx eslint ./src <cr>", desc = "Run eslint" },
         ["<leader>lt"] = { "<cmd>TSC<cr>", desc = "Run TSC" },
 
         ["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "Code Action" },
