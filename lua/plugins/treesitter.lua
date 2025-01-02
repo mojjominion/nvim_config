@@ -16,7 +16,7 @@ return {
       "yaml",
       "toml",
       "bash",
-      "python",
+      -- "python",
       -- add more arguments for adding more treesitter parsers
       "diff",
       "html",

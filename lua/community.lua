@@ -8,11 +8,14 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.lua" },
   -- { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.python" },
+  { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
   { import = "astrocommunity.motion.leap-nvim" },
+  -- { import = "astrocommunity.markdown-and-latex.vimtext" },
   -- {
   --   "m4xshen/smartcolumn.nvim",
   --   opts = {
