@@ -1,4 +1,10 @@
 return {
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = { "typescript-language-server" }, -- automatically install lsp
+    },
+  },
   { "jose-elias-alvarez/typescript.nvim", lazy = true }, -- add lsp plugin
   {
     "AstroNvim/astrolsp",
@@ -6,7 +12,7 @@ return {
     opts = {
       setup_handlers = {
         -- add custom handler
-        -- tsserver = function(_, opts) require("typescript").setup { server = opts } end,
+        tsserver = function(_, opts) require("typescript").setup { server = opts } end,
       },
       ---@diagnostic disable: missing-fields
       config = {
@@ -17,16 +23,15 @@ return {
           end,
           settings = {
             tsserver_max_memory = 8092,
-            separate_diagnostic_server = false,
+            separate_diagnostic_server = true,
           },
         },
       },
     },
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      -- ensure_installed = { "tsserver" }, -- automatically install lsp
-    },
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  -- }
 }

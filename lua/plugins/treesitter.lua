@@ -20,11 +20,9 @@ return {
       -- add more arguments for adding more treesitter parsers
       "diff",
       "html",
-      "javascript",
       "jsdoc",
       "json",
       "jsonc",
-      "lua",
       "luadoc",
       "luap",
       "markdown",
@@ -32,13 +30,10 @@ return {
       "python",
       "query",
       "regex",
-      "toml",
       "tsx",
-      "typescript",
       "vim",
       "vimdoc",
       "xml",
-      "yaml",
     })
   end,
 }
