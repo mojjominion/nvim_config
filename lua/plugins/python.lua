@@ -13,8 +13,4 @@ return {
     -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
     { "<leader>vc", "<cmd>VenvSelectCached<cr>" },
   },
-
-  require("venv-selector").setup {
-    poetry_path = "/home/cado/.cache/pypoetry/virtualenvs",
-  },
 }
