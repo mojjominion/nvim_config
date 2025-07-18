@@ -19,6 +19,10 @@ return {
         "sqlls",
         "graphql",
         "taplo",
+        "elp",
+        "erlangls",
+        -- "elixirls",
+        -- "nextls",
         -- add more arguments for adding more language servers
       })
     end,

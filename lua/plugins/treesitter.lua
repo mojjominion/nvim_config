@@ -34,6 +34,7 @@ return {
       "vim",
       "vimdoc",
       "xml",
+      "erlang",
     })
   end,
 }
