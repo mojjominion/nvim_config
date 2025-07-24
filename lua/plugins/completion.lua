@@ -2,7 +2,13 @@ return { -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
   dependencies = {
     "hrsh7th/cmp-emoji", -- add cmp source as dependency of cmp
-  },                     -- override the options table that is used in the `require("cmp").setup()` call
+    "rafamadriz/friendly-snippets",
+    "hrsh7th/cmp-vsnip", -- or cmp-luasnip depending on your snippet engine
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-nvim-lsp",
+    "kristijanhusak/vim-dadbod-completion", -- Dadbod completion
+  },                                        -- override the options table that is used in the `require("cmp").setup()` call
   ---@param opts cmp.ConfigSchema
   opts = function(_, opts)
     local cmp = require "cmp"
@@ -30,5 +36,12 @@ return { -- override nvim-cmp plugin
       max_height = math.floor(vim.o.lines * 0.4),
       min_height = 3,
     }
+    cmp.setup.filetype("sql", {
+      sources = cmp.config.sources {
+        { name = "vim-dadbod-completion", priority = 1000 },
+        { name = "luasnip",               priority = 750 },
+        { name = "buffer",                priority = 500 },
+      },
+    })
   end,
 }
