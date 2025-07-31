@@ -8,7 +8,7 @@ return {
 
     elixir.setup {
       nextls = {
-        enable = false,
+        enable = true,
         -- cmd = "~/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/tags_v0.22.0/1.17.2-27/",
       },
       elixirls = {

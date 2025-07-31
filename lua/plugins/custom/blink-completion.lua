@@ -1,6 +1,4 @@
 return {
-  { "rcarriga/cmp-dap", enabled = false },
-  { "hrsh7th/nvim-cmp", enabled = false },
   {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },

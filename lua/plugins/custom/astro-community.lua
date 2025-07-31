@@ -14,6 +14,7 @@ return {
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.markdown" },
+  { import = "astrocommunity.pack.docker" },
   -- { import = "astrocommunity.pack.nginx" },
   -- { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.colorscheme.catppuccin" },
