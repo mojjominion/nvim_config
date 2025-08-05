@@ -5,27 +5,6 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
-  { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.lua" },
-  -- { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.python" },
-  { import = "astrocommunity.pack.python-ruff" },
-  { import = "astrocommunity.pack.typescript" },
-  -- { import = "astrocommunity.pack.elixir-phoenix" },
-  { import = "astrocommunity.pack.docker" },
-  { import = "astrocommunity.pack.go" },
-  { import = "astrocommunity.pack.markdown" },
-  -- { import = "astrocommunity.pack.nginx" },
-  { import = "astrocommunity.recipes.telescope-lsp-mappings" },
-  { import = "astrocommunity.colorscheme.catppuccin" },
-  -- { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
-  { import = "astrocommunity.motion.leap-nvim" },
-  -- { import = "astrocommunity.markdown-and-latex.vimtext" },
-  -- {
-  --   "m4xshen/smartcolumn.nvim",
-  --   opts = {
-  --     colorcolumn = 120,
-  --     disabled_filetypes = { "help" },
-  --   },
-  -- },
+  -- import/override with your plugins folder
 }

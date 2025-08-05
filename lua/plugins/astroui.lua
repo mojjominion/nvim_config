@@ -6,84 +6,32 @@
 ---@type LazySpec
 return {
   "AstroNvim/astroui",
-  lazy = false,     -- disable lazy loading
-  priority = 10000, -- load AstroUI first
   ---@type AstroUIOpts
-  -- further customize the options set by the community
   opts = {
-    colorscheme = "catppuccin-macchiato",
-    style = "macchiato", -- latte, frappe, macchiato, mocha
-    background = {       -- :h background
-      light = "latte",
-      dark = "frappe",
-    },
-    -- transparent_background = false, -- disables setting the background color.
-    show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-    term_colors = false,        -- sets terminal colors (e.g. `g:terminal_color_0`)
-    dim_inactive = {
-      enabled = false,          -- dims the background color of inactive window
-      shade = "dark",
-      percentage = 0.15,        -- percentage of the shade to apply to the inactive window
-    },
-    no_italic = false,          -- Force no italic
-    no_bold = false,            -- Force no bold
-    no_underline = false,       -- Force no underline
-    styles = {                  -- Handles the styles of general hi groups (see `:h highlight-args`):
-      comments = { "italic" },  -- Change the style of comments
-      conditionals = { "italic" },
-      loops = {},
-      functions = {},
-      keywords = {},
-      strings = {},
-      variables = {},
-      numbers = {},
-      booleans = {},
-      properties = {},
-      types = {},
-      operators = {},
-    },
-    custom_highlights = {},
-    color_overrides = {
-      all = {
-        text = "#ffffff",
+    -- change colorscheme
+    colorscheme = "catppuccin",
+    -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
+    highlights = {
+      init = { -- this table overrides highlights in all themes
+        -- Normal = { bg = "#000000" },
       },
-      mocha = {
-        base = "#1e1e2e",
+      astrodark = { -- a table of overrides/changes when applying the astrotheme theme
+        -- Normal = { bg = "#000000" },
       },
-      frappe = {},
-      macchiato = {},
-      latte = {},
     },
-    integrations = {
-      sandwich = false,
-      noice = true,
-      mini = true,
-      leap = true,
-      markdown = true,
-      neotest = true,
-      cmp = true,
-      overseer = true,
-      lsp_trouble = true,
-      ts_rainbow2 = true,
+    -- Icons can be configured throughout the interface
+    icons = {
+      -- configure the loading of the lsp in the status line
+      LSPLoading1 = "⠋",
+      LSPLoading2 = "⠙",
+      LSPLoading3 = "⠹",
+      LSPLoading4 = "⠸",
+      LSPLoading5 = "⠼",
+      LSPLoading6 = "⠴",
+      LSPLoading7 = "⠦",
+      LSPLoading8 = "⠧",
+      LSPLoading9 = "⠇",
+      LSPLoading10 = "⠏",
     },
-  },
-  -- Icons can be configured throughout the interface
-  icons = {
-    GitAdd = "",
-    -- configure the loading of the lsp in the status line
-    LSPLoading1 = "⠋",
-    LSPLoading2 = "⠙",
-    LSPLoading3 = "⠹",
-    LSPLoading4 = "⠸",
-    LSPLoading5 = "⠼",
-    LSPLoading6 = "⠴",
-    LSPLoading7 = "⠦",
-    LSPLoading8 = "⠧",
-    LSPLoading9 = "⠇",
-    LSPLoading10 = "⠏",
-  },
-  -- A table of only text "icons" used when icons are disabled
-  text_icons = {
-    GitAdd = "[+]",
   },
 }
