@@ -24,7 +24,7 @@ return {
   -- { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
-  { import = "astrocommunity.motion.leap-nvim" },
+  { import = "astrocommunity.motion.flash-nvim" },
   -- { import = "astrocommunity.markdown-and-latex.vimtext" },
   -- {
   --   "m4xshen/smartcolumn.nvim",
