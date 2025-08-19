@@ -1,0 +1,9 @@
+return {
+  {
+    "danymat/neogen",
+    lazy = false,
+    config = true,
+    -- Uncomment next line if you want to follow only stable versions
+    version = "*",
+  },
+}

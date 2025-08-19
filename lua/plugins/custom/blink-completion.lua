@@ -1,10 +1,4 @@
-local function has_words_before()
-  local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-end
 return {
-  { "rcarriga/cmp-dap", enabled = false },
-  { "hrsh7th/nvim-cmp", enabled = false },
   {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },
@@ -18,35 +12,6 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = {
-        ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<Up>"] = { "select_prev", "fallback" },
-        ["<Down>"] = { "select_next", "fallback" },
-        ["<C-N>"] = { "select_next", "show" },
-        ["<C-P>"] = { "select_prev", "show" },
-        ["<C-J>"] = { "select_next", "fallback" },
-        ["<C-K>"] = { "select_prev", "fallback" },
-        ["<C-U>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-D>"] = { "scroll_documentation_down", "fallback" },
-        ["<C-e>"] = { "hide", "fallback" },
-        ["<CR>"] = { "accept", "fallback" },
-        ["<Tab>"] = {
-          "select_next",
-          "snippet_forward",
-          function(cmp)
-            if has_words_before() or vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
-          end,
-          "fallback",
-        },
-        ["<S-Tab>"] = {
-          "select_prev",
-          "snippet_backward",
-          function(cmp)
-            if vim.api.nvim_get_mode().mode == "c" then return cmp.show() end
-          end,
-          "fallback",
-        },
-      },
       appearance = {
         nerd_font_variant = "mono",
       },
@@ -58,10 +23,6 @@ return {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 0,
-          window = {
-            border = "rounded",
-            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-          },
         },
         -- ghost_text = { enabled = true }, -- Use a preset for snippets, check the snippets documentation for more information
         menu = {
@@ -157,7 +118,7 @@ return {
           emoji = {
             module = "blink-emoji",
             name = "Emoji",
-            score_offset = 93,        -- the higher the number, the higher the priority
+            score_offset = 93, -- the higher the number, the higher the priority
             min_keyword_length = 2,
             opts = { insert = true }, -- Insert emoji (default) or complete its name
           },
@@ -165,20 +126,12 @@ return {
       },
       signature = {
         enabled = true,
-        window = {
-          border = "rounded",
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
-        },
       },
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
       -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
       -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
       -- See the fuzzy documentation for more information
       fuzzy = { implementation = "prefer_rust_with_warning" },
-      windows = {
-        border = "rounded",
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
-      },
     },
   },
 }
