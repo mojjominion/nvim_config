@@ -7,13 +7,9 @@ return {
     local elixirls = require "elixir.elixirls"
 
     elixir.setup {
-      nextls = {
-        enable = true,
-        -- cmd = "~/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/tags_v0.22.0/1.17.2-27/",
-      },
+      nextls = { enable = false },
       elixirls = {
         enable = true,
-        -- cmd = "~/.cache/nvim/elixir-tools.nvim/installs/elixir-lsp/elixir-ls/tags_v0.22.0/1.17.2-27/language_server.sh",
         settings = elixirls.settings {
           dialyzerEnabled = false,
           enableTestLenses = false,
