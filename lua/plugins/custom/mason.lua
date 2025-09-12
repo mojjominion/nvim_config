@@ -27,8 +27,8 @@ return {
         "sqlls",
         "graphql-language-service-cli",
         "taplo",
-        -- "elp",
-        "erlang-ls",
+        "elp",
+        -- "erlang-ls",
         -- "elixir-ls",
         -- "nextls",
         -- add more arguments for adding more language servers
