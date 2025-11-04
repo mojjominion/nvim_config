@@ -75,6 +75,11 @@ return {
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
+        -- " full path
+        ["<Leader>by"] = { '<cmd>:let @+ = expand("%:t")<cr>', desc = "Copy filename" },
+        -- " just filename
+        ["<Leader>be"] = { '<cmd>:let @+ = expand("%:p")<cr>', desc = "Copy full path" },
+        -- ["<Leader>by"] = { '<cmd>:let @+ = expand("%:t")<cr>', desc = "Copy file name" },
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
       },
