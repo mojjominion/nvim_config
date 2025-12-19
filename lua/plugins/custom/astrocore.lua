@@ -79,13 +79,16 @@ return {
         ["<Leader>by"] = { '<cmd>:let @+ = expand("%:t")<cr>', desc = "Copy filename" },
         -- " just filename
         ["<Leader>be"] = { '<cmd>:let @+ = expand("%:p")<cr>', desc = "Copy full path" },
-        -- ["<Leader>by"] = { '<cmd>:let @+ = expand("%:t")<cr>', desc = "Copy file name" },
+        ["<Leader>gy"] = { "<cmd>:GetGithubPermalink<cr>", desc = "Copy github permlink" },
         -- quick save
         -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
       },
       t = {
         -- setting a mapping to false will disable it
         -- ["<esc>"] = false,
+      },
+      v = {
+        ["<Leader>gy"] = { "<cmd>:GetGithubPermalink<cr>", desc = "Copy github permlink" },
       },
     },
   },
