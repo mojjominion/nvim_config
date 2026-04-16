@@ -20,7 +20,7 @@ return {
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.sql" },
   { import = "astrocommunity.pack.full-dadbod" },
-  { import = "astrocommunity.pack.nginx" },
+  -- { import = "astrocommunity.pack.nginx" },
   -- { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.bars-and-lines.smartcolumn-nvim" },
