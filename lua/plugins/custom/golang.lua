@@ -24,37 +24,82 @@ return {
             gopls = {
               -- Don't force gofumpt globally, let projects decide
               -- gofumpt = true,
+              -- Performance optimized settings
               codelenses = {
                 gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
+                generate = false, -- Disabled: expensive for large projects
+                regenerate_cgo = false, -- Disabled: rarely needed, expensive
+                run_govulncheck = false, -- Disabled: very expensive, run manually
+                test = true, -- Keep: useful for development
+                tidy = false, -- Disabled: expensive, run manually
+                upgrade_dependency = false, -- Disabled: very expensive
+                vendor = false, -- Disabled: rarely needed
               },
               hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
+                assignVariableTypes = false, -- Disabled: can be noisy and expensive
+                compositeLiteralFields = true, -- Keep: useful and relatively cheap
+                compositeLiteralTypes = false, -- Disabled: can be expensive
+                constantValues = false, -- Disabled: expensive for large codebases
+                functionTypeParameters = true, -- Keep: useful for generics
+                parameterNames = true, -- Keep: improves readability
+                rangeVariableTypes = false, -- Disabled: can be expensive
               },
               analyses = {
-                fieldalignment = true,
-                nilness = true,
-                unusedparams = true,
-                unusedwrite = true,
-                useany = true,
+                fieldalignment = false, -- Disabled: very expensive
+                nilness = false, -- Disabled: expensive
+                unusedparams = true, -- Keep: important for code quality
+                unusedwrite = true, -- Keep: important for code quality
+                useany = true, -- Keep: relatively cheap
               },
               usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-              semanticTokens = true,
+              completeUnimported = false, -- Disabled: very expensive, major cause of slowdown
+              staticcheck = false, -- Disabled: extremely expensive, run separately
+              directoryFilters = {
+                "-.git",
+                "-**/.git",
+                "-submodules",
+                "-submodules/**",
+                "-.vscode",
+                "-.idea",
+                "-.vscode-test",
+                "-node_modules",
+                "-vendor",
+                "-testdata",
+                "-.build",
+                "-build",
+                "-dist",
+                "-tmp",
+                "-temp",
+                "-target",
+                "-out",
+              },
+              semanticTokens = false, -- Disabled: expensive, handled by treesitter
+
+              -- Additional performance settings
+              experimentalPostfixCompletions = false, -- Disable experimental features
+              experimentalWorkspaceModule = false, -- Disable experimental workspace features
+              memoryMode = "DegradeClosed", -- Reduce memory usage for closed files
+              expandWorkspaceToModule = false, -- Don't expand workspace to entire module
+              buildFlags = { "-tags", "" }, -- Reduce build complexity
+
+              -- Aggressive performance settings for large projects (889MB, 1675 files)
+              deepCompletion = false,                -- Disable deep completion analysis
+              fuzzyMatching = false,                 -- Disable fuzzy matching in completions
+              caseSensitiveCompletion = true,        -- Faster exact matching
+              importShortcut = "Definition",         -- Faster import handling
+              symbolMatcher = "FastFuzzy",          -- Use faster symbol matching
+              symbolStyle = "Dynamic",              -- Dynamic symbol loading
+              allowModfileModifications = false,     -- Don't modify go.mod automatically
+              allowImplicitNetworkAccess = false,    -- Prevent network calls
+
+              env = {
+                GOPROXY = "direct", -- Skip proxy for faster module resolution
+                GOSUMDB = "off",     -- Skip checksum verification for speed
+                GOCACHE = vim.fn.expand("~/.cache/go-build"), -- Use local cache
+                GOMAXPROCS = "2",    -- Limit gopls to 2 CPU cores max
+                GOMEMLIMIT = "512MiB", -- Hard memory limit for gopls process
+                GOGC = "200",        -- Reduce garbage collection frequency (save CPU)
+              },
             },
           },
         },
