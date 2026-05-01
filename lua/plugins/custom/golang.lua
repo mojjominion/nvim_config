@@ -16,7 +16,7 @@ return {
     },
   },
   {
-    "neovim/nvim-lspconfig",
+    "AstroNvim/astrolsp",
     opts = {
       servers = {
         gopls = {
@@ -83,22 +83,22 @@ return {
               buildFlags = { "-tags", "" }, -- Reduce build complexity
 
               -- Aggressive performance settings for large projects (889MB, 1675 files)
-              deepCompletion = false,                -- Disable deep completion analysis
-              fuzzyMatching = false,                 -- Disable fuzzy matching in completions
-              caseSensitiveCompletion = true,        -- Faster exact matching
-              importShortcut = "Definition",         -- Faster import handling
-              symbolMatcher = "FastFuzzy",          -- Use faster symbol matching
-              symbolStyle = "Dynamic",              -- Dynamic symbol loading
-              allowModfileModifications = false,     -- Don't modify go.mod automatically
-              allowImplicitNetworkAccess = false,    -- Prevent network calls
+              deepCompletion = false, -- Disable deep completion analysis
+              fuzzyMatching = false, -- Disable fuzzy matching in completions
+              caseSensitiveCompletion = true, -- Faster exact matching
+              importShortcut = "Definition", -- Faster import handling
+              symbolMatcher = "FastFuzzy", -- Use faster symbol matching
+              symbolStyle = "Dynamic", -- Dynamic symbol loading
+              allowModfileModifications = false, -- Don't modify go.mod automatically
+              allowImplicitNetworkAccess = false, -- Prevent network calls
 
               env = {
                 GOPROXY = "direct", -- Skip proxy for faster module resolution
-                GOSUMDB = "off",     -- Skip checksum verification for speed
-                GOCACHE = vim.fn.expand("~/.cache/go-build"), -- Use local cache
-                GOMAXPROCS = "2",    -- Limit gopls to 2 CPU cores max
+                GOSUMDB = "off", -- Skip checksum verification for speed
+                GOCACHE = vim.fn.expand "~/.cache/go-build", -- Use local cache
+                GOMAXPROCS = "2", -- Limit gopls to 2 CPU cores max
                 GOMEMLIMIT = "512MiB", -- Hard memory limit for gopls process
-                GOGC = "200",        -- Reduce garbage collection frequency (save CPU)
+                GOGC = "200", -- Reduce garbage collection frequency (save CPU)
               },
             },
           },
