@@ -1,6 +1,6 @@
--- go lang
+-- Minimal Go config for very large repos - disable most gopls features
 return {
-  -- go lang
+  -- Keep DAP debugging
   {
     "leoluz/nvim-dap-go",
     config = true,
@@ -22,19 +22,6 @@ return {
         gopls = {
           settings = {
             gopls = {
-              -- Don't force gofumpt globally, let projects decide
-              -- gofumpt = true,
-              -- Performance optimized settings
-              codelenses = {
-                gc_details = false,
-                generate = false, -- Disabled: expensive for large projects
-                regenerate_cgo = false, -- Disabled: rarely needed, expensive
-                run_govulncheck = false, -- Disabled: very expensive, run manually
-                test = true, -- Keep: useful for development
-                tidy = false, -- Disabled: expensive, run manually
-                upgrade_dependency = false, -- Disabled: very expensive
-                vendor = false, -- Disabled: rarely needed
-              },
               hints = {
                 assignVariableTypes = false, -- Disabled: can be noisy and expensive
                 compositeLiteralFields = true, -- Keep: useful and relatively cheap
@@ -51,54 +38,67 @@ return {
                 unusedwrite = true, -- Keep: important for code quality
                 useany = true, -- Keep: relatively cheap
               },
-              usePlaceholders = true,
-              completeUnimported = false, -- Disabled: very expensive, major cause of slowdown
-              staticcheck = false, -- Disabled: extremely expensive, run separately
+              -- Minimal feature set for speed
+              codelenses = false, -- Disable all code lenses
+              semanticTokens = false, -- Use treesitter only
+
+              -- Basic completion only
+              completeUnimported = false,
+              deepCompletion = false,
+              fuzzyMatching = false,
+              usePlaceholders = false,
+
+              -- Minimal diagnostics
+              staticcheck = false,
+
+              -- Aggressive memory and performance limits
+              memoryMode = "DegradeClosed",
+              expandWorkspaceToModule = false,
+              allowModfileModifications = false,
+              allowImplicitNetworkAccess = false,
+              experimentalPostfixCompletions = false,
+              experimentalWorkspaceModule = false,
+
+              -- Very restrictive completion budget
+              completionBudget = "200ms",
+
+              -- Disable file watching for performance
+              watchFileChanges = false,
+
+              -- Exclude everything possible
               directoryFilters = {
                 "-.git",
                 "-**/.git",
-                "-submodules",
-                "-submodules/**",
-                "-.vscode",
-                "-.idea",
-                "-.vscode-test",
-                "-node_modules",
                 "-vendor",
                 "-testdata",
+                "-**/*_test.go",
+                "-**/test/**",
+                "-**/tests/**",
+                "-**/*.pb.go",
+                "-**/*_gen.go",
+                "-**/generated/**",
+                "-**/third_party/**",
+                "-**/external/**",
+                "-**/mocks/**",
+                "-node_modules",
+                "-**/.cache",
+                "-**/cache/**",
                 "-.build",
                 "-build",
                 "-dist",
                 "-tmp",
                 "-temp",
-                "-target",
-                "-out",
+                "-**/proto/**",
+                "-**/.terraform/**",
               },
-              semanticTokens = false, -- Disabled: expensive, handled by treesitter
-
-              -- Additional performance settings
-              experimentalPostfixCompletions = false, -- Disable experimental features
-              experimentalWorkspaceModule = false, -- Disable experimental workspace features
-              memoryMode = "DegradeClosed", -- Reduce memory usage for closed files
-              expandWorkspaceToModule = false, -- Don't expand workspace to entire module
-              buildFlags = { "-tags", "" }, -- Reduce build complexity
-
-              -- Aggressive performance settings for large projects (889MB, 1675 files)
-              deepCompletion = false, -- Disable deep completion analysis
-              fuzzyMatching = false, -- Disable fuzzy matching in completions
-              caseSensitiveCompletion = true, -- Faster exact matching
-              importShortcut = "Definition", -- Faster import handling
-              symbolMatcher = "FastFuzzy", -- Use faster symbol matching
-              symbolStyle = "Dynamic", -- Dynamic symbol loading
-              allowModfileModifications = false, -- Don't modify go.mod automatically
-              allowImplicitNetworkAccess = false, -- Prevent network calls
 
               env = {
-                GOPROXY = "direct", -- Skip proxy for faster module resolution
-                GOSUMDB = "off", -- Skip checksum verification for speed
-                GOCACHE = vim.fn.expand "~/.cache/go-build", -- Use local cache
-                GOMAXPROCS = "2", -- Limit gopls to 2 CPU cores max
-                GOMEMLIMIT = "512MiB", -- Hard memory limit for gopls process
-                GOGC = "200", -- Reduce garbage collection frequency (save CPU)
+                GOMEMLIMIT = "128MiB", -- Very low limit
+                GOMAXPROCS = "1", -- Single thread
+                GOGC = "400", -- Very infrequent GC
+                GOPROXY = "direct",
+                GOSUMDB = "off",
+                GOCACHE = vim.fn.expand "~/.cache/go-build",
               },
             },
           },
@@ -106,63 +106,15 @@ return {
       },
       setup = {
         gopls = function(_, opts)
-          -- Check for project-specific formatting preferences
-          local function detect_project_formatting()
-            local cwd = vim.fn.getcwd()
+          -- Simple gofumpt detection (keep this minimal)
+          local cwd = vim.fn.getcwd()
+          local use_gofumpt = vim.fn.filereadable(cwd .. "/.gofumpt.toml") == 1
+            or vim.fn.filereadable(cwd .. "/.gofumpt.yaml") == 1
+            or vim.fn.filereadable(cwd .. "/.gofumpt.yml") == 1
 
-            -- Check if project has .golangci.yml
-            if vim.fn.filereadable(cwd .. "/.golangci.yml") == 1 then
-              -- Read golangci config to see if it specifies formatters
-              local golangci_content = vim.fn.readfile(cwd .. "/.golangci.yml")
-              local content_str = table.concat(golangci_content, "\n")
-
-              -- If golangci.yml doesn't explicitly configure gofumpt, don't use it
-              if not string.match(content_str, "gofumpt") then
-                return false -- Use standard gofmt
-              end
-            end
-
-            -- Check for explicit gofumpt config files
-            local gofumpt_files = {
-              "/.gofumpt.toml",
-              "/.gofumpt.yaml",
-              "/.gofumpt.yml",
-            }
-
-            for _, file in ipairs(gofumpt_files) do
-              if vim.fn.filereadable(cwd .. file) == 1 then
-                return true -- Use gofumpt
-              end
-            end
-
-            -- Default to no gofumpt unless explicitly configured
-            return false
-          end
-
-          -- Apply project-specific gofumpt setting
-          local use_gofumpt = detect_project_formatting()
           opts.settings = opts.settings or {}
           opts.settings.gopls = opts.settings.gopls or {}
           opts.settings.gopls.gofumpt = use_gofumpt
-
-          -- workaround for gopls not supporting semanticTokensProvider
-          -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          require("lazyvim.util").on_attach(function(client, _)
-            if client.name == "gopls" then
-              if not client.server_capabilities.semanticTokensProvider then
-                local semantic = client.config.capabilities.textDocument.semanticTokens
-                client.server_capabilities.semanticTokensProvider = {
-                  full = true,
-                  legend = {
-                    tokenTypes = semantic.tokenTypes,
-                    tokenModifiers = semantic.tokenModifiers,
-                  },
-                  range = true,
-                }
-              end
-            end
-          end)
-          -- end workaround
         end,
       },
     },
