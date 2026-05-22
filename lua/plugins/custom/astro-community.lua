@@ -8,7 +8,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   -- { import = "astrocommunity.pack.rust" },
   { import = "astrocommunity.pack.python" },
-  { import = "astrocommunity.pack.python-ruff" },
+  -- { import = "astrocommunity.pack.python-ruff" },
   { import = "astrocommunity.pack.typescript" },
   -- { import = "astrocommunity.pack.elixir-phoenix" },
   { import = "astrocommunity.pack.docker" },
