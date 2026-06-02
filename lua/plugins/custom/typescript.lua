@@ -5,7 +5,7 @@ return {
       ensure_installed = { "typescript-language-server" }, -- automatically install lsp
     },
   },
-  { "jose-elias-alvarez/typescript.nvim", lazy = true }, -- add lsp plugin
+  -- { "jose-elias-alvarez/typescript.nvim", lazy = true }, -- add lsp plugin
   {
     "AstroNvim/astrolsp",
     ---@type AstroLSPOpts
