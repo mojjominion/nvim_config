@@ -3,6 +3,17 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+local function run_selection()
+  local s = vim.fn.line "'<"
+  local e = vim.fn.line "'>"
+  local lines = vim.api.nvim_buf_get_lines(0, s - 1, e, false)
+  lines = vim.tbl_map(function(l) return l:match "^%s*(.-)%s*$" end, lines)
+  local output = vim.fn.system("sh", table.concat(lines, "\n"))
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(output, "\n"))
+  require("snacks").win { buf = buf, width = 0.6, height = 0.4, bo = { filetype = "sh" } }
+end
+
 ---@type LazySpec
 return {
   "AstroNvim/astrocore",
@@ -54,6 +65,9 @@ return {
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
       -- first key is the mode
+      x = {
+        ["<Leader>rx"] = { run_selection, desc = "Run selection as sh" },
+      },
       n = {
         -- second key is the lefthand side of the map
 
